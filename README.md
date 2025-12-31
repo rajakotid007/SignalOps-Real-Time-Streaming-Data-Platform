@@ -93,9 +93,6 @@ Run the following commands in the Docker terminal to create a local Kafka and Zo
 | Run Kafka | docker run -d --hostname kafkanode --net datamakingnet --ip 172.20.1.4 --name datamaking_kafka --publish 9092:9092 --publish 7203:7203 --env KAFKA_ADVERTISED_HOST_NAME=192.168.99.100 --env ZOOKEEPER_IP=192.168.99.100 ches/kafka |
 | Verify Containers | docker images / docker ps / docker ps -a |
 
-Screenshot:
-
-![database](./images/4b.png)
 
 ---
 
@@ -169,11 +166,10 @@ Sample screenshots:
 
 ## Contact
 
-Pritom Das Radheshyam  
-Portfolio Website:https://github.com/rajakotid007/Project_Portfolio
+Rajakoti Dasari
+Portfolio Website(https://github.com/rajakotid007)
 
 ---
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/you-found-pritom
+[linkedin-url]: www.linkedin.com/in/rajakoti-dasari-a926b0237
