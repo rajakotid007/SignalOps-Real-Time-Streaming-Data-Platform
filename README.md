@@ -5,40 +5,46 @@
 
 <p align="center">
   <img src="./images/2.PNG" alt="Logo" width="500" height="300">
-<h2 align="center"><i>Building Streaming Data Pipeline using Apache Hadoop, Apache Spark and Kafka on Docker</i></h2>
+  <h2 align="center"><i>SignalOps — Real-Time Streaming Data Pipeline on Docker</i></h2>
 </p>
 
-
-</p>
-
-> Apache Hadoop, Apache Spark, Apache ZooKeeper, Kafka, Scala, Python, PySpark PostgreSQL, Docker, Django, Flexmonster, Real Time Streaming, Data Pipeline, Dashboard
-
-
+> Apache Hadoop, Apache Spark, Apache ZooKeeper, Kafka, Scala, Python, PySpark, PostgreSQL, Docker, Django, Flexmonster, Real-Time Streaming, Data Pipeline, Monitoring Dashboard
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-Building Real Time Data Pipeline Using Apache Kafka, Apache Spark, Hadoop, PostgreSQL, Django and Flexmonster on Docker
+
+SignalOps is a **real-time streaming data engineering platform** designed to ingest, process, store, and visualize high-volume event data using a distributed, containerized architecture. The project demonstrates how production-style streaming systems are built using Apache Kafka, Spark Structured Streaming, and Hadoop.
+
+---
 
 ### Project Description
 
-* In many data centers, different type of servers generate large amount of data(events, Event in this case is status of the server in the data center) in real-time.
+* In large-scale data centers, servers continuously generate operational events such as health status, metrics, and system signals in real time.
 
-* There is always a need to process these data in real-time and generate insights which will be used by the server/data center monitoring people and they have to track these server's status regularly and find the resolution in case of issues occurring, for better server stability.
+* These events must be processed immediately to detect anomalies, monitor performance, and support operational decision-making by infrastructure and monitoring teams.
 
-* Since the data is huge and coming in real-time, we need to choose the right architecture with scalable storage and computation frameworks/technologies.
+* Due to the volume and velocity of the data, scalable and fault-tolerant technologies are required for ingestion, processing, and storage.
 
-* Hence we want to build the Real Time Data Pipeline Using Apache Kafka, Apache Spark, Hadoop, PostgreSQL, Django and Flexmonster on Docker to generate insights out of this data.
+* This project implements a **real-time data pipeline** using Apache Kafka, Apache Spark, Hadoop, PostgreSQL, Django, and Flexmonster — all running on Docker — to generate actionable insights from streaming data.
 
-* The Spark Project/Data Pipeline is built using Apache Spark with Scala and PySpark on Apache Hadoop Cluster which is on top of Docker.
+* The streaming pipeline is built using Apache Spark Structured Streaming with both **Scala and PySpark**, running on a Hadoop cluster deployed via Docker.
 
-* Data Visualization is built using Django Web Framework and Flexmonster.
+* Data visualization and monitoring are implemented using the Django web framework and Flexmonster to provide live dashboards.
+
+---
 
 ### Use Case Diagram
+
 ![database](./images/3.png)
 
+---
+
 ### Proposed Pipeline Architecture
+
 ![database](./images/2.PNG)
+
+---
 
 ### Built With
 
@@ -47,107 +53,127 @@ Building Real Time Data Pipeline Using Apache Kafka, Apache Spark, Hadoop, Postg
 * Apache ZooKeeper
 * Docker
 * Kafka
-* Django (IDE uSed VS Studio Code)
+* Django (IDE used: VS Code)
 * Flexmonster
-* Scala  (IDE used Idea IntellliJ Professional Edition)
-* Python (IDE used PyCharm Professional Edition)
-* PySpark (IDE used PyCharm Professional Edition)
+* Scala (IDE used: IntelliJ IDEA)
+* Python (IDE used: PyCharm)
+* PySpark (IDE used: PyCharm)
+
+---
 
 ### Environment Setup
 
 #### (a) Docker Setup
-Installed Docker Toolbox (https://github.com/docker/toolbox/releases) for Windows 10 Home Edition Operating System. Faced the following issue after installation :
+
+Docker is used to containerize and run all components of the pipeline locally.  
+For Windows 10 Home Edition, Docker Toolbox was installed.
+
+During setup, virtualization must be enabled in the BIOS. In some cases, the hypervisor setting must be explicitly disabled if set to "Auto". The following issue and resolution may be encountered:
 
 ![database](./images/5.png)
 
-To fix the issue, first enable "Virtualization" from BIOS if it is disabled. Strangley, the "hypervisor" needed to be manually turned "Off", if it is turned "Auto". Use the following link to fix the issue if facing the same problem (https://github.com/docker/toolbox/issues/745).
+Reference: https://github.com/docker/toolbox/issues/745
 
 After successful installation:
+
 ![database](./images/4a.png)
 
-#### (b) Create Single Node Kafka Cluster in Local Machine
-Run the following script in the created Docker Terminal:
+---
 
-|     Steps    |                         Type Commands in Docker Terminal                        |
-| :--------------------: | :----------------------------------------------------------: |
-| 1. Create Docker Network | docker network create --subnet=172.20.0.0/16 datamakingnet # create custom network |
-| 2. Create ZooKeeper Container  | docker pull zookeeper:3.4s |
-|  | docker run -d --hostname zookeepernode --net datamakingnet --ip 172.20.1.3 --name datamaking_zookeeper --publish 2181:2181 zookeeper:3.4 |
-|     3. Create Kafka Container    | docker pull ches/kafka |
-|     | docker run -d --hostname kafkanode --net datamakingnet --ip 172.20.1.4 --name datamaking_kafka --publish 9092:9092 --publish 7203:7203 --env KAFKA_ADVERTISED_HOST_NAME=192.168.99.100 --env ZOOKEEPER_IP=192.168.99.100 ches/kafka |
-|                 | docker images |
-|           | docker ps |
-|           | docker ps -a |
+#### (b) Create Single Node Kafka Cluster in Local Machine
+
+Run the following commands in the Docker terminal to create a local Kafka and ZooKeeper setup:
+
+| Steps | Commands |
+| :---: | :--- |
+| Create Docker Network | docker network create --subnet=172.20.0.0/16 datamakingnet |
+| Pull ZooKeeper Image | docker pull zookeeper:3.4 |
+| Run ZooKeeper | docker run -d --hostname zookeepernode --net datamakingnet --ip 172.20.1.3 --name datamaking_zookeeper --publish 2181:2181 zookeeper:3.4 |
+| Pull Kafka Image | docker pull ches/kafka |
+| Run Kafka | docker run -d --hostname kafkanode --net datamakingnet --ip 172.20.1.4 --name datamaking_kafka --publish 9092:9092 --publish 7203:7203 --env KAFKA_ADVERTISED_HOST_NAME=192.168.99.100 --env ZOOKEEPER_IP=192.168.99.100 ches/kafka |
+| Verify Containers | docker images / docker ps / docker ps -a |
 
 Screenshot:
+
 ![database](./images/4b.png)
 
-#### (C) Create Single Node Apache Hadoop and Spark Cluster on Docker
-Run the following script in the created Docker Terminal:
+---
 
-|     Steps    |                         Type Commands in Docker Terminal                        |
-| :--------------------: | :----------------------------------------------------------: |
-| 1. Create Single Node Hadoop Cluster | Unzip and extract datamaking_hadoop_spark_cluster_image.zip file|
-|   | cd datamaking_hadoop_spark_cluster_image |
-| 2. Create docker images for Apache Hadoop, Apache Spark, Apache Hive and PostgreSQL | ./1_create_hadoop_spark_image.sh |
-| 3. Create docker containers for Apache Hadoop, Apache Spark, Apache Hive and PostgreSQL    | ./2_create_hadoop_spark_cluster.sh createa |
-|  Stop all Containers   | docker stop $(docker ps -a -q) |
-|                 |docker rm $(docker ps -a -q) |
-|  Remove all Images      | docker images -a|
-|           | docker rmi $(docker images -a -q) |
+#### (c) Create Single Node Apache Hadoop and Spark Cluster on Docker
 
+Run the following steps in the Docker terminal:
+
+| Steps | Commands |
+| :---: | :--- |
+| Extract Cluster Image | Unzip datamaking_hadoop_spark_cluster_image.zip |
+| Navigate Directory | cd datamaking_hadoop_spark_cluster_image |
+| Build Images | ./1_create_hadoop_spark_image.sh |
+| Create Containers | ./2_create_hadoop_spark_cluster.sh createa |
+| Stop Containers | docker stop $(docker ps -a -q) |
+| Remove Containers | docker rm $(docker ps -a -q) |
+| Remove Images | docker rmi $(docker images -a -q) |
+
+---
 
 ### Development Setup
 
-#### (a) Event Simuator Using Python
-Run the python script "data_center_server_status_simulator.py". This script simulates live creation of server status information.
+#### (a) Event Simulator Using Python
 
+Run the Python script `data_center_server_status_simulator.py` to simulate continuous server status events in real time.
 
-#### (b) Building Streaming Data Pipeline using Scala and Spark Structured Streaming (Scala Based) 
-Load "datamaking_streaming_data_pipeline (Scala)" as a new scala project in Idea IntelliJ and run it.
+---
+
+#### (b) Streaming Data Pipeline using Spark Structured Streaming (Scala)
+
+Load `datamaking_streaming_data_pipeline (Scala)` as a Scala project in IntelliJ IDEA and execute the streaming job.
 
 #### OR
 
-#### (b) Building Streaming Data Pipeline using Scala and Spark Structured Streaming (PySpark Based) 
-Open "datamaking_streaming_data_pipeline (PySpark)". Run the following pyspark script "real_time_streaming_data_pipeline.py".
+#### (b) Streaming Data Pipeline using Spark Structured Streaming (PySpark)
 
+Open `datamaking_streaming_data_pipeline (PySpark)` and run the script `real_time_streaming_data_pipeline.py`.
 
-#### (c) Setting up PostgreSQL Database(Events Database)
-Login to docker terminal and the PostgreSQL CLI will be used.
+---
 
-|     Steps    |
-| :--------------------: |
+#### (c) PostgreSQL Database Setup (Events Database)
+
+Access the PostgreSQL CLI inside the Docker container and run the following commands:
+
+| Steps |
+| :--- |
 | psql -U postgres |
-| CREATE USER demouser WITH PASSWORD 'demouser';  |
+| CREATE USER demouser WITH PASSWORD 'demouser'; |
 | ALTER USER demouser WITH SUPERUSER; |
-| CREATE DATABASE event_message_db;    |
-|   GRANT ALL PRIVILEGES ON DATABASE event_message_db TO demouser;  |
-|       \c event_message_db;          |
+| CREATE DATABASE event_message_db; |
+| GRANT ALL PRIVILEGES ON DATABASE event_message_db TO demouser; |
+| \c event_message_db; |
 
+---
 
-#### (d)  Building Dashboard using Django Web Framework and Flexmonster for Visualization
-Load the folder "Server Status Monitoring" in VS Code IDE as a new project and run it.
+#### (d) Real-Time Dashboard using Django and Flexmonster
 
+Open the `Server Status Monitoring` folder in VS Code and run the Django application to visualize streaming data in real time.
 
+---
 
 ### Final Result
-The dashboard updates live as the python simultor keeps feeding with new data. Some sample screenshots:
+
+The dashboard updates live as new events are generated and processed through the streaming pipeline.
+
+Sample screenshots:
 
 ![database](./images/6.PNG)
 ![database](./images/7.PNG)
 
-
-<!-- CONTACT -->
+---
 
 ## Contact
 
-Pritom Das Radheshyam - [Portfolio Website](https://pritom.uwu.ai/)
+Pritom Das Radheshyam  
+Portfolio Website: https://pritom.uwu.ai/
 
-
+---
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/you-found-pritom
-[product-screenshot]: images/screenshot.jpg
