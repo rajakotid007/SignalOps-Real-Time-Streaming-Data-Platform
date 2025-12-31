@@ -72,11 +72,7 @@ During setup, virtualization must be enabled in the BIOS. In some cases, the hyp
 
 ![database](./images/5.png)
 
-Reference: https://github.com/docker/toolbox/issues/745
 
-After successful installation:
-
-![database](./images/4a.png)
 
 ---
 
